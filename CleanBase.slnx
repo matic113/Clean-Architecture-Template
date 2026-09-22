@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="src/CleanBase.Api/CleanBase.Api.csproj" />
+  <Project Path="src/CleanBase.Application/CleanBase.Application.csproj" />
+  <Project Path="src/CleanBase.Domain/CleanBase.Domain.csproj" />
+  <Project Path="src/CleanBase.Infrastructure/CleanBase.Infrastructure.csproj" />
+</Solution>

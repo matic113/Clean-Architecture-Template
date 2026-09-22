@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+        <PackageReference Include="Microsoft.OpenApi" Version="2.9.0" />
+        <PackageReference Include="Scalar.Aspnetcore" Version="2.16.8" />
+        <PackageReference Include="Sentry.AspNetCore" Version="6.6.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+        <PackageReference Include="FastEndpoints" Version="7.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CleanBase.Application\CleanBase.Application.csproj" />
+        <ProjectReference Include="..\CleanBase.Infrastructure\CleanBase.Infrastructure.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Logs\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="..\CleanBase.Infrastructure\Email\Templates\**\*.cshtml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <Target Name="CopyEmailTemplates" AfterTargets="Publish">
+        <ItemGroup>
+            <EmailTemplates Include="..\CleanBase.Infrastructure\Email\Templates\*.cshtml" />
+        </ItemGroup>
+        <Copy SourceFiles="@(EmailTemplates)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" />
+        <Message Importance="high" Text="Copied email templates to publish folder: @(EmailTemplates)" />
+    </Target>
+</Project>
